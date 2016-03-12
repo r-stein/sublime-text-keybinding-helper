@@ -1,0 +1,4 @@
+[
+    { "caption": "KeybindingHelper: Toggle show commands", "command": "toggle_show_commands" },
+    { "caption": "KeybindingHelper: Toggle show inputs", "command": "toggle_show_inputs" }
+]
