@@ -32,7 +32,6 @@ class ShowCommandAssistantCommand(sublime_plugin.WindowCommand):
         capturing = True
 
         view = self.window.create_output_panel("keybinding")
-        print("capturing:", capturing)
         self.window.run_command("show_panel", {"panel": "output.keybinding"})
 
         vsettings = view.settings()
@@ -108,7 +107,8 @@ class CommandAssistantListener(sublime_plugin.EventListener):
             return
         if view != self.output_view:
             return
-        if (len(view.sel()) != 1 or not view.sel()[0].empty() or
+        if (len(view.sel()) != 1 or
+                not view.sel()[0].empty() or
                 view.sel()[0].a == 0):
             return
         point = view.sel()[0].b
