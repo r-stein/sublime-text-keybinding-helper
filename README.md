@@ -3,6 +3,11 @@
 A plugin with the purpose to show keybindings and simplify the creation of new keybindings.
 
 
+## Command Assistant *(ST3 only)*
+
+The command assistant shows the executed commands in an output panel and adds a `[COPY]`-*button* to copy the command. Afterwards it can be pasted into a keymap via [Paste keybindings](#paste-keybindings) to create a keybinding.
+
+
 ## Show used keybindings
 
 Use ``ctrl+alt+` `` to show they used commands (keybindings) and ``ctrl+alt+shift+` `` to show the keys (key events). This will just open the console and call `sublime.log_commands` or `sublime.log_input`.
@@ -25,6 +30,12 @@ E.g. you could select `command: paste_keybinding` and paste it into a keymap. Th
 This does also work if you write a `TextCommand` plugin and copy the name, e.g. `PasteKeybindingCommand`.
 
 ## Demonstration
+
+__Command Assistant__ *(ST3 only)*
+
+This demonstrates the *Command Assistant*. Press `ctrl+shift+p` and write `KeybindingHelper: Show Command Assistant` to show the *Command Assistant*. This will show the name and arguments of every command you execute. If you click on `[COPY]` it will copy the command in your clipboard. Afterwards you can paste it via `ctrl+v` into a keymap to create a keybinding.
+
+![kh_command_assistant](https://cloud.githubusercontent.com/assets/12573621/14055462/856e63fa-f2e2-11e5-82b1-cc969d1739fd.gif)
 
 __Show user keybindings__
 
