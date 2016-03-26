@@ -1,5 +1,9 @@
 [
     {
+        "keys": ["ctrl+`"],
+        "command": "show_command_assistant"
+    },
+    {
         "keys": ["super+ctrl+`"],
         "command": "toggle_show_commands"
     },
