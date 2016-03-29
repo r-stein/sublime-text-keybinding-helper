@@ -6,7 +6,7 @@ import re
 _RE_COMMAND_PATTERN = re.compile(
      "command: "
      "(?P<command>\w*)"
-     "(?: {(?P<args>[^\}]*)})?"
+     "(?: {(?P<args>.*)})?"
  )
 
 _RE_PY_COMMAND_PATTERN = re.compile(
