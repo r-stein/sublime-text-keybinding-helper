@@ -18,5 +18,14 @@
         [
             { "key": "selector", "operator": "equal", "operand": "source.sublimekeymap, source.sublimemousemap, source.suricate-profile" }
         ]
+    },
+    {
+        "keys": ["super+v"],
+        "command": "paste_command",
+        "context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "source.python string.quoted" },
+            { "key": "preceding_text", "operator": "regex_contains", "operand": "run_command\\((?:'|\")$" }
+        ]
     }
 ]
