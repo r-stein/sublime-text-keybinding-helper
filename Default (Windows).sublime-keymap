@@ -16,7 +16,7 @@
         "command": "paste_keybinding",
         "context":
         [
-            {"key": "selector", "operator": "equal", "operand": "source.sublimekeymap, source.sublimemousemap"}
+            { "key": "selector", "operator": "equal", "operand": "source.sublimekeymap, source.sublimemousemap, source.suricate-profile" }
         ]
     }
 ]

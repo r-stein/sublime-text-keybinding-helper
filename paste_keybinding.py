@@ -4,20 +4,20 @@ import re
 
 
 _RE_COMMAND_PATTERN = re.compile(
-     "command: "
-     "(?P<command>\w*)"
-     "(?: {(?P<args>.*)})?"
- )
+     r"command: "
+     r"(?P<command>\w*)"
+     r"(?: {(?P<args>.*)})?"
+)
 
 _RE_PY_COMMAND_PATTERN = re.compile(
-    "[A-Z]\w*Command"
+    r"[A-Z]\w*Command"
 )
 
 keybinding_template = (
     "{\n"
     "\t\"keys\": [\"${1:ctrl+alt+shift+a}\"],\n"
-    "\t\"command\": \"%s\""
-    "%s,$2\n"
+    "\t\"command\": \"<<command>>\""
+    "<<args>>,$2\n"
     "},$0"
 )
 
@@ -26,9 +26,19 @@ mousebinding_template = (
     "\t\"button\": \"${1:button1}\",\n"
     "\t\"modifiers\": [\"${2:alt}\"],\n"
     "\t\"press_command\": \"drag_selected\",\n"
-    "\t\"command\": \"%s\""
-    "%s,$3\n"
+    "\t\"command\": \"<<command>>\""
+    "<<args>>,$3\n"
     "},$0"
+)
+
+surigate_profile_template = (
+    '''"${1:<<command>>}":
+{
+\t"keys": [${2:"<c>+o", "<c>+t"}],
+\t"caption": "${3:${1/(?:^|(_))(\\w)/\\U(?1: :)\\2/g}...}",$0
+\t"call": "sublime.<<command>>"<<args>>
+},
+'''
 )
 
 
@@ -39,6 +49,8 @@ def get_template(view):
             return keybinding_template
         elif view.score_selector(point, "source.sublimemousemap"):
             return mousebinding_template
+        elif view.score_selector(point, "source.suricate-profile"):
+            return surigate_profile_template
     return keybinding_template
 
 
@@ -55,14 +67,20 @@ class PasteKeybindingCommand(sublime_plugin.TextCommand):
             if args:
                 argstr = ",\n\t\"args\": { %s }" % args
             template = get_template(self.view)
-            keybinding = template % (command, argstr)
+            keybinding = (
+                template
+                .replace("<<command>>", command)
+                .replace("<<args>>", argstr))
             self.view.run_command("insert_snippet", {"contents": keybinding})
         elif py_command_match:
             command = re.sub(r"Command$", "", text)
             command = re.sub(r"(?<=[a-z])([A-Z])", r"_\1", command)
             command = command.lower()
             template = get_template(self.view)
-            keybinding = template % (command, "")
+            keybinding = (
+                template
+                .replace("<<command>>", command)
+                .replace("<<args>>", ""))
             self.view.run_command("insert_snippet", {"contents": keybinding})
         else:
             self.view.run_command("paste")
