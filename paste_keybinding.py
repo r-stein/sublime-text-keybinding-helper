@@ -4,9 +4,9 @@ import re
 
 
 _RE_COMMAND_PATTERN = re.compile(
-     r"command: "
-     r"(?P<command>\w*)"
-     r"(?: {(?P<args>.*)})?"
+    r"command: "
+    r"(?P<command>\w*)"
+    r"(?: {(?P<args>.*)})?"
 )
 
 _RE_PY_COMMAND_PATTERN = re.compile(
@@ -45,9 +45,11 @@ surigate_profile_template = (
 def get_template(view):
     if len(view.sel()):
         point = view.sel()[0].b
-        if view.score_selector(point, "source.sublimekeymap"):
+        if view.score_selector(
+                point, "source.json.sublimekeymap, source.sublimekeymap"):
             return keybinding_template
-        elif view.score_selector(point, "source.sublimemousemap"):
+        elif view.score_selector(
+                point, "source.json.sublimemousemap, source.sublimemousemap"):
             return mousebinding_template
         elif view.score_selector(point, "source.suricate-profile"):
             return surigate_profile_template
