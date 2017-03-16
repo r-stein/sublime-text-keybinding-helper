@@ -45,7 +45,11 @@ surigate_profile_template = (
 def get_template(view):
     if len(view.sel()):
         point = view.sel()[0].b
+
         if view.score_selector(
+                point, "string.quoted, command-name"):
+            return "<<command>>"
+        elif view.score_selector(
                 point, "source.json.sublimekeymap, source.sublimekeymap"):
             return keybinding_template
         elif view.score_selector(
